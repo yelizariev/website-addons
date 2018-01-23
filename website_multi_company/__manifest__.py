@@ -16,6 +16,7 @@
     "currency": "EUR",
 
     "depends": [
+        "mail",
         "website",
         "website_multi_theme",
         "ir_config_parameter_multi_company",
