@@ -54,7 +54,7 @@ class Module(models.Model):
                     for module in theme_modules
                 ]
                 raise UserError(_(
-                    "You are trying to install incompatible themes:\n%s\n\n" \
+                    "You are trying to install incompatible themes:\n%s\n\n"
                     "Please uninstall your current theme before installing another one.\n"
                     "Warning: switching themes may significantly alter the look of your current website pages!"
                 ) % ("\n".join(themes_list)))
