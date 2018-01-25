@@ -216,7 +216,7 @@ Note. Odoo doesn't share Website Menus (E.g. Homepage, Shop, Contact us, etc.) b
 Multi-theme
 -----------
 
-After installing theme, navigate to ``[[ Website ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
+After installing theme, navigate to ``[[ Website Admin ]] >> Configuration >> Multi-Themes``. Check that the theme is presented in the list, otherwise add one.
 
 Usage
 =====
