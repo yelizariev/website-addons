@@ -174,7 +174,7 @@ Configuration
 
 * `Enable technical features <https://odoo-development.readthedocs.io/en/latest/odoo/usage/technical-features.html>`__
 * At ``[[ Settings ]] >> Users >> Users`` menu and activate **Multi Companies** and set **Allowed Companies**
-* Open menu ``[[ Website ]] >> Configuration >> Websites``
+* Open menu ``[[ Website Admin ]] >> Configuration >> Websites``
 * Create or select a website record
 * Update fields:
 
