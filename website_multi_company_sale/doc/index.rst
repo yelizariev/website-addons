@@ -31,8 +31,8 @@ Multi-categories
 Multi-cart
 ----------
 
-* Login as portal or internal at some of your websites
-* Add some products to to the cart
+* Login as portal or internal user at some of your websites
+* Add some products to the cart
 * Open another website that belongs to another company
 * Login as the same user
 * RESULT: you have empty cart, rather than one from previous website
