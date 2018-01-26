@@ -1,3 +1,8 @@
+`1.2.2`
+-------
+
+- **FIX:** fix multi-theme for theme that have theme-like dependecies
+
 `1.2.1`
 -------
 
