@@ -1,5 +1,5 @@
 import logging
-from odoo import models, fields, api
+from odoo import models, fields
 
 _logger = logging.getLogger(__name__)
 
@@ -15,7 +15,6 @@ class WebsiteTheme(models.Model):
     dependency_ids = fields.Many2many(
         'ir.module.module',
         string="Dependencies",
-        #domain=lambda self: self._domain_dependency_ids(),
         help='Theme-like dependencies. Add modules here if you got error "The style compilation failed".')
 
     def _convert_assets(self):
