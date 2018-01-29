@@ -22,6 +22,7 @@
     "external_dependencies": {"python": [], "bin": []},
     "data": [
         "views/product_public_category_views.xml",
+        "views/website_views.xml",
     ],
     "qweb": [
     ],
