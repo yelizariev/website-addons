@@ -9,6 +9,12 @@ from odoo import models, fields
 
 _logger = logging.getLogger(__name__)
 
+# views, that has to be force to be multi-company
+MULTI_VIEWS = [
+    'website.footer_custom',
+    'website.footer_default',
+]
+
 
 class WebsiteTheme(models.Model):
     _inherit = 'website.theme'
@@ -52,6 +58,14 @@ class WebsiteTheme(models.Model):
             if refs or one.asset_ids:
                 # add common_refs only for installed themes
                 refs |= common_refs
+
+                # Force to make some base views multi-company. E.g. multi-footer
+                for xmlid in MULTI_VIEWS:
+                    module, name = xmlid.split('.', 1)
+                    refs |= self.env["ir.model.data"].search([
+                        ('module', '=', module),
+                        ('name', '=', name)
+                    ])
 
             # Skip views without inherit_id, because those have new
             # template definition only and after appliying multi-theme
