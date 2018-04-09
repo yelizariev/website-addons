@@ -5,7 +5,7 @@
 
 import logging
 
-from odoo import models, fields
+from odoo import models, fields, api
 
 _logger = logging.getLogger(__name__)
 
@@ -13,6 +13,8 @@ _logger = logging.getLogger(__name__)
 MULTI_VIEWS = [
     'website.footer_custom',
     'website.footer_default',
+    'website.layout_logo_show',
+    'website.show_sign_in',
 ]
 
 
@@ -28,6 +30,18 @@ class WebsiteTheme(models.Model):
         'ir.module.module',
         string="Dependencies",
         help='Theme-like dependencies. Add modules here if you got error "The style compilation failed".')
+
+    @api.model
+    def _get_multi_views_refs(self):
+        refs = self.env["ir.model.data"]
+        for xmlid in MULTI_VIEWS:
+            module, name = xmlid.split('.', 1)
+            new_ref = self.env["ir.model.data"].search([
+                ('module', '=', module),
+                ('name', '=', name)
+            ])
+            refs += new_ref
+        return refs
 
     def _convert_assets(self):
         """Generate assets for converted themes"""
@@ -60,12 +74,7 @@ class WebsiteTheme(models.Model):
                 refs |= common_refs
 
                 # Force to make some base views multi-company. E.g. multi-footer
-                for xmlid in MULTI_VIEWS:
-                    module, name = xmlid.split('.', 1)
-                    refs |= self.env["ir.model.data"].search([
-                        ('module', '=', module),
-                        ('name', '=', name)
-                    ])
+                refs |= self._get_multi_views_refs()
 
             # Skip views without inherit_id, because those have new
             # template definition only and after appliying multi-theme
@@ -90,14 +99,13 @@ class WebsiteTheme(models.Model):
             # Create a new asset for each theme view
             for ref in expected - existing:
                 _logger.debug("Creating asset %s for theme %s", ref, one.name)
-                priority = 10
-                if view.model_data_id.module == one.converted_theme_addon:
-                    # make less priority to apply views after all deps
-                    priority = 100
+
+                # we set priority equal to view id to apply copied views in a
+                # right order
                 one.asset_ids |= Asset.new({
                     "name": ref,
                     "auto": True,
-                    'priority': priority,
+                    'priority': view.id,
                 })
             # Delete all dangling assets
             if dangling:
