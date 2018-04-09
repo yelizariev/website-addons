@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright 2018 Ivan Yelizariev <https://it-projects.info/team/yelizariev>
+     License LGPL-3.0 or later (http://www.gnu.org/licenses/lgpl.html). -->
+<odoo>
+    <!--
+        Create empty theme and apply dummy view for it. It allows to have
+        "Default theme" in a Multi-theme list. It's a workaround for multi-customize feature (e.g. multi-footer).
+    -->
+    
+    <template id="default_theme_dummy"
+              inherit_id="website.assets_frontend"
+              name="Dummy View to activate Default Theme">
+        <xpath expr=".">
+            <!-- nothing -->
+        </xpath>
+    </template>
+
+    <record model="website.theme" id="default_theme">
+        <field name="name">Default Theme</field>
+    </record>
+
+    <record model="website.theme.asset" id="default_theme_asset">
+        <field name="name">website_multi_company.default_theme_dummy</field>
+        <field name="theme_id" ref="default_theme"/>
+    </record>
+
+    <function model="website.theme"
+              name="_convert_assets"
+              eval="([ref('default_theme')])"/>
+
+</odoo>

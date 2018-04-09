@@ -29,6 +29,7 @@
         "views/res_config_views.xml",
         "views/website_navbar_templates.xml",
         "views/res_users_view.xml",
+        "data/default_theme.xml",
     ],
     "qweb": [
     ],
