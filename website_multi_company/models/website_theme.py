@@ -12,9 +12,6 @@ _logger = logging.getLogger(__name__)
 # views, that has to be force to be multi-company
 MULTI_VIEWS = [
     'website.footer_custom',
-    'website.footer_default',
-    'website.layout_logo_show',
-    'website.show_sign_in',
 ]
 
 
@@ -40,7 +37,7 @@ class WebsiteTheme(models.Model):
                 ('module', '=', module),
                 ('name', '=', name)
             ])
-            refs += new_ref
+            refs |= new_ref
         return refs
 
     def _convert_assets(self):
@@ -99,7 +96,7 @@ class WebsiteTheme(models.Model):
             # Create a new asset for each theme view
             for ref in expected - existing:
                 _logger.debug("Creating asset %s for theme %s", ref, one.name)
-
+                view = self.env.ref(ref)
                 # we set priority equal to view id to apply copied views in a
                 # right order
                 one.asset_ids |= Asset.new({
